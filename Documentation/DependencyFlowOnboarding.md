@@ -81,7 +81,7 @@ Once you are part of the `arcade-contrib` team
 
 ##### 3.3. Get all existing channels
 
-1. Run `darc get-channels` to display available channels.  Arcade builds are published to the '.NET Tools - Latest' channel.
+1. Run `darc get-channels` to display available channels.  Arcade builds are published to the '.NET Eng - Latest' channel.
 
 ##### 3.4. Create a subscription to get Arcade updates
 
@@ -95,11 +95,12 @@ Interactive will open an editor to modify the fields, while non-interactive expe
 2. Fill out the fields.  For Arcade, this typically looks like:
 
 ```
-Channel: .NET Tools - Latest
+Channel: .NET Eng - Latest
 Source Repository URL: https://github.com/dotnet/arcade
 Target Repository URL: <your repository URL>
 Target Branch: <target branch for arcade updates, e.g. master>
 Update Frequency: everyDay
+Batchable: False
 Merge Policies:
 - Name: standard
   Properties: {}
@@ -109,7 +110,7 @@ Merge Policies:
 
 ###### Non-interactive mode
 
-1. Run `darc add-subscription --channel ".NET Tools - Latest" --source-repo https://github.com/dotnet/arcade --target-repo <your repo> --target-branch master --update-frequency everyDay --ignore-checks WIP,license/cla --all-checks-passed -q`
+1. Run `darc add-subscription --channel ".NET Eng - Latest" --source-repo https://github.com/dotnet/arcade --target-repo <your repo> --target-branch master --update-frequency everyDay --ignore-checks WIP,license/cla --all-checks-passed -q`
 
 These steps can be altered for additional subscriptions to other repositories.
 
@@ -141,7 +142,7 @@ How often does a source repo flows dependencies into a target repo.
 
 ##### 3.5. Create a channel (optional, typically not needed)
 
-You only need to create a channel in rare cases.  Most .NET Core 5 builds should be assigned to the ".NET Core 5 Dev" channel.  However, if you do need to create a new channel:
+You only need to create a channel in rare cases.  Most .NET 5 builds should be assigned to the ".NET 5 Dev" channel.  However, if you do need to create a new channel:
 
 1. Run the following darc command:
    ```
@@ -156,19 +157,19 @@ Outputs from any build of any branch could be associated with a channel after th
 For example, I might decide that 'dev/foobar', containing a one off fix, is what I want to flow into downstream repositories.
 
 In practice, it's tedious to manually associate each new build with a channel.
-Most of the time, each build 'master' is intended for '.NET Core 5 Dev', each build of release/2.1 is intended for
+Most of the time, each build 'master' is intended for '.NET 5 Dev', each build of release/2.1 is intended for
 '.NET Core Release 2.1', etc. Associating a branch with a channel causes every new build of that branch to be automatically
 applied to the channel.
 
-For most .NET Core repositories, 'master' should be associated with '.NET Core 5 Dev'.
+For most .NET Core repositories, 'master' should be associated with '.NET 5 Dev'.
 
 1. Run the following darc command:
    ```
    darc add-default-channel --branch refs/heads/<branch> --repo <repo URI> --channel <target channel>
    ```
-   Example: For corefx master (the .NET Core 5 development branch), this would be:
+   Example: For corefx master (the .NET 5 development branch), this would be:
    ```
-   darc add-default-channel --branch refs/heads/master --repo https://github.com/dotnet/corefx --channel ".NET Core 5 Dev"
+   darc add-default-channel --branch refs/heads/master --repo https://github.com/dotnet/corefx --channel ".NET 5 Dev"
    ```
 2. Verify with `darc get-default-channels`
 
@@ -186,7 +187,7 @@ To validate that created subscriptions and channels work as expected you'd need 
    You can use various parameters to filter the list and find the subscription you're interested in.  For instance:
    ```
    darc get-subscriptions --target-repo corefx
-   https://github.com/dotnet/arcade (.NET Tools - Latest) ==> 'https://github.com/dotnet/corefx' ('master')
+   https://github.com/dotnet/arcade (.NET Eng - Latest) ==> 'https://github.com/dotnet/corefx' ('master')
    - Id: c297d885-0692-40f8-6b97-08d61f281b4c
    - Update Frequency: everyDay
    - Merge Policies:
