@@ -63,12 +63,11 @@ jobs:
               $AzureDevOpsBuildId = $buildInfo.azureDevOpsBuildId
               
               write-host "promote"
-              write-host $buildInfo.GitHubRepository
-              write-host $buildInfo.AzureDevOpsRepository
-              write-host $buildInfo
+              write-host $null -eq $buildInfo.GitHubRepository
+              write-host $null -eq $buildInfo.AzureDevOpsRepository
 
-              $BuildRepoUri = If ("" -ne $buildInfo.GitHubRepository) { $buildInfo.GitHubRepository } Else { $buildInfo.AzureDevOpsRepository }
-              $BuildBranch = If ("" -ne $buildInfo.GitHubBranch) { $buildInfo.GitHubBranch } Else { $buildInfo.AzureDevOpsBranch }
+              $BuildRepoUri = If ($null -ne $buildInfo.GitHubRepository) { $buildInfo.GitHubRepository } Else { $buildInfo.AzureDevOpsRepository }
+              $BuildBranch = If ($null -ne $buildInfo.GitHubBranch) { $buildInfo.GitHubBranch } Else { $buildInfo.AzureDevOpsBranch }
               $BuildCommit = $buildInfo.commit
             }
 
