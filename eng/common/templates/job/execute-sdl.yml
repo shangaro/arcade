@@ -36,13 +36,14 @@ jobs:
   pool:
     name: Hosted VS2017
   steps:
+  - checkout: none
   - task: Powershell@2
     displayName: Checkout $(BuildRepoUri)
     inputs:
       targetType: inline
       script: |
-        git clone $(BuildRepoUri) $Env:Build_SourcesDirectory	
-        cd $Env:Build_SourcesDirectory
+        git clone $(BuildRepoUri) ${Env:Build_SourcesDirectory}\src
+        cd ${Env:Build_SourcesDirectory}\src
         git checkout $(BuildCommit)
   - ${{ if ne(parameters.downloadArtifacts, 'false')}}:
     - ${{ if ne(parameters.artifactNames, '') }}:
