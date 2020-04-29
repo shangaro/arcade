@@ -38,6 +38,10 @@ jobs:
               $AzureDevOpsProject = $Env:System_TeamProject
               $AzureDevOpsBuildDefinitionId = $Env:System_DefinitionId
               $AzureDevOpsBuildId = $Env:Build_BuildId
+              
+              $BuildRepoUri = $Env:Build_Repository_Uri
+              $BuildBranch = $Env:Build_SourceBranch
+              $BuildCommit = $Env:Build_SourceVersion
             }
             else {
               $buildApiEndpoint = "${Env:MaestroApiEndPoint}/api/builds/${Env:BARBuildId}?api-version=${Env:MaestroApiVersion}"
@@ -57,11 +61,19 @@ jobs:
               $AzureDevOpsProject = $buildInfo.azureDevOpsProject
               $AzureDevOpsBuildDefinitionId = $buildInfo.azureDevOpsBuildDefinitionId
               $AzureDevOpsBuildId = $buildInfo.azureDevOpsBuildId
+              
+              $BuildRepoUri = If ("" -ne $buildInfo.GitHubRepository) { $buildInfo.GitHubRepository } Else { $buildInfo.AzureDevOpsRepository }
+              $BuildBranch = If ("" -ne $buildInfo.GitHubBranch) { $buildInfo.GitHubBranch } Else { $buildInfo.AzureDevOpsBranch }
+              $BuildCommit = $buildInfo.commit
             }
 
             Write-Host "##vso[task.setvariable variable=BARBuildId;isOutput=true]$BarId"
             Write-Host "##vso[task.setvariable variable=TargetChannels;isOutput=true]$Channels"
             Write-Host "##vso[task.setvariable variable=IsStableBuild;isOutput=true]$IsStableBuild"
+
+            Write-Host "##vso[task.setvariable variable=BuildRepoUri;isOutput=true]$BuildRepoUri"
+            Write-Host "##vso[task.setvariable variable=BuildBranch;isOutput=true]$BuildBranch"
+            Write-Host "##vso[task.setvariable variable=BuildCommit;isOutput=true]$BuildCommit"
 
             Write-Host "##vso[task.setvariable variable=AzDOProjectName;isOutput=true]$AzureDevOpsProject"
             Write-Host "##vso[task.setvariable variable=AzDOPipelineId;isOutput=true]$AzureDevOpsBuildDefinitionId"
