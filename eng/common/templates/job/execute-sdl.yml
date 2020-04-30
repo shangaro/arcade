@@ -33,18 +33,27 @@ jobs:
       value: $[ dependencies.setupMaestroVars.outputs['setReleaseVars.BuildBranch'] ]
     - name: BuildCommit
       value: $[ dependencies.setupMaestroVars.outputs['setReleaseVars.BuildCommit'] ]
+    - name: BuildNumber
+      value: $[ dependencies.setupMaestroVars.outputs['setReleaseVars.BuildNumber'] ]
+    - name: BuildSourcesDir
+      value: $[ dependencies.setupMaestroVars.outputs['setReleaseVars.BuildSourcesDir'] ]
+    - name: BuildRepositoryName
+      value: $[ dependencies.setupMaestroVars.outputs['setReleaseVars.BuildRepositoryName'] ]
   pool:
     name: Hosted VS2017
   steps:
-  - checkout: none
+  - checkout: self
+    clean: true
+    
   - task: Powershell@2
     displayName: Checkout $(BuildRepoUri)
     inputs:
       targetType: inline
       script: |
-        git clone $(BuildRepoUri) ${Env:Build_SourcesDirectory}\src
-        cd ${Env:Build_SourcesDirectory}\src
+        git clone $(BuildRepoUri) $(BuildSourcesDir)
+        cd $(BuildSourcesDir)
         git checkout $(BuildCommit)
+        
   - ${{ if ne(parameters.downloadArtifacts, 'false')}}:
     - ${{ if ne(parameters.artifactNames, '') }}:
       - ${{ each artifactName in parameters.artifactNames }}:
@@ -58,6 +67,7 @@ jobs:
             buildId: $(AzDOBuildId)
             artifactName: ${{ artifactName }}
             downloadPath: $(Build.ArtifactStagingDirectory)\artifacts
+            
     - ${{ if eq(parameters.artifactNames, '') }}:
       - task: DownloadBuildArtifacts@0
         displayName: Download Build Artifacts
@@ -70,18 +80,22 @@ jobs:
           downloadType: specific files
           itemPattern: "**"
           downloadPath: $(Build.ArtifactStagingDirectory)\artifacts
+          
   - powershell: eng/common/sdl/extract-artifact-packages.ps1
       -InputPath $(Build.ArtifactStagingDirectory)\artifacts\BlobArtifacts
       -ExtractPath $(Build.ArtifactStagingDirectory)\artifacts\BlobArtifacts
     displayName: Extract Blob Artifacts
     continueOnError: ${{ parameters.sdlContinueOnError }}
+    
   - powershell: eng/common/sdl/extract-artifact-packages.ps1
       -InputPath $(Build.ArtifactStagingDirectory)\artifacts\PackageArtifacts
       -ExtractPath $(Build.ArtifactStagingDirectory)\artifacts\PackageArtifacts
     displayName: Extract Package Artifacts
     continueOnError: ${{ parameters.sdlContinueOnError }}
+    
   - task: NuGetToolInstaller@1
     displayName: 'Install NuGet.exe'
+    
   - task: NuGetCommand@2
     displayName: 'Install Guardian'
     inputs:
@@ -90,15 +104,29 @@ jobs:
       nugetConfigPath: $(Build.SourcesDirectory)\eng\common\sdl\NuGet.config
       externalFeedCredentials: GuardianConnect
       restoreDirectory: $(Build.SourcesDirectory)\.packages
+      
   - ${{ if ne(parameters.overrideParameters, '') }}:
     - powershell: eng/common/sdl/execute-all-sdl-tools.ps1 ${{ parameters.overrideParameters }}
+        -Repository $(BuildRepositoryName)
+        -BranchName $(BuildBranch)
+        -SourceDirectory $(BuildSourcesDir)
+        -TsaBranchName $(BuildBranch)
+        -TsaRepositoryName $(BuildRepositoryName)
+        -BuildNumber $(BuildNumber)
       displayName: Execute SDL
       continueOnError: ${{ parameters.sdlContinueOnError }}
+      
   - ${{ if eq(parameters.overrideParameters, '') }}:
     - powershell: eng/common/sdl/execute-all-sdl-tools.ps1
         -GuardianPackageName Microsoft.Guardian.Cli.win10-x64.0.20.1
         -NugetPackageDirectory $(Build.SourcesDirectory)\.packages
         -AzureDevOpsAccessToken $(dn-bot-dotnet-build-rw-code-rw)
+        -Repository $(BuildRepositoryName)
+        -BranchName $(BuildBranch)
+        -SourceDirectory $(BuildSourcesDir)
+        -TsaBranchName $(BuildBranch)
+        -TsaRepositoryName $(BuildRepositoryName)
+        -BuildNumber $(BuildNumber)
         ${{ parameters.additionalParameters }}
       displayName: Execute SDL
       continueOnError: ${{ parameters.sdlContinueOnError }}
