@@ -50,6 +50,7 @@ jobs:
     inputs:
       targetType: inline
       script: |
+        write-host $(BuildRepoUri)
         git clone $(BuildRepoUri) $(BuildSourcesDir)
         cd $(BuildSourcesDir)
         git checkout $(BuildCommit)
