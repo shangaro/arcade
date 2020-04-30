@@ -42,6 +42,9 @@ jobs:
               $BuildRepoUri = $Env:Build_Repository_Uri
               $BuildBranch = $Env:Build_SourceBranch
               $BuildCommit = $Env:Build_SourceVersion
+              $BuildNumber = $Env:Build_BuildNumber
+              $BuildSourcesDir = $Env:Build_SourcesDirectory
+              $BuildRepositoryName = $Env:Build_Repository_Name
             }
             else {
               $buildApiEndpoint = "${Env:MaestroApiEndPoint}/api/builds/${Env:BARBuildId}?api-version=${Env:MaestroApiVersion}"
@@ -69,6 +72,9 @@ jobs:
               $BuildRepoUri = If ($null -ne $buildInfo.GitHubRepository) { $buildInfo.GitHubRepository } Else { $buildInfo.AzureDevOpsRepository }
               $BuildBranch = If ($null -ne $buildInfo.GitHubBranch) { $buildInfo.GitHubBranch } Else { $buildInfo.AzureDevOpsBranch }
               $BuildCommit = $buildInfo.commit
+              $BuildNumber = $buildInfo.AzureDevOpsBuildNumber
+              $BuildSourcesDir = $Env:Build_SourcesDirectory\TargetBuildSources
+              $BuildRepositoryName = "promotion/pipeline/test"
             }
 
             Write-Host "##vso[task.setvariable variable=BARBuildId;isOutput=true]$BarId"
@@ -78,6 +84,9 @@ jobs:
             Write-Host "##vso[task.setvariable variable=BuildRepoUri;isOutput=true]$BuildRepoUri"
             Write-Host "##vso[task.setvariable variable=BuildBranch;isOutput=true]$BuildBranch"
             Write-Host "##vso[task.setvariable variable=BuildCommit;isOutput=true]$BuildCommit"
+            Write-Host "##vso[task.setvariable variable=BuildNumber;isOutput=true]$BuildNumber"
+            Write-Host "##vso[task.setvariable variable=BuildSourcesDir;isOutput=true]$BuildSourcesDir"
+            Write-Host "##vso[task.setvariable variable=BuildRepositoryName;isOutput=true]$BuildRepositoryName"
 
             Write-Host "##vso[task.setvariable variable=AzDOProjectName;isOutput=true]$AzureDevOpsProject"
             Write-Host "##vso[task.setvariable variable=AzDOPipelineId;isOutput=true]$AzureDevOpsBuildDefinitionId"
