@@ -1,0 +1,302 @@
+<!-- Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information. -->
+<Project>
+  <PropertyGroup>
+    <Feed_DotNetEng_Shipping>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json</Feed_DotNetEng_Shipping>
+    <Feed_DotNetEng_Transport>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng/nuget/v3/index.json</Feed_DotNetEng_Transport>
+    <Feed_DotNetEng_Symbols>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-eng-symbols/nuget/v3/index.json</Feed_DotNetEng_Symbols>
+
+    <Feed_DotNetTools_Shipping>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools/nuget/v3/index.json</Feed_DotNetTools_Shipping>
+    <Feed_DotNetTools_Transport>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools/nuget/v3/index.json</Feed_DotNetTools_Transport>
+    <Feed_DotNetTools_Symbols>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools-symbols/nuget/v3/index.json</Feed_DotNetTools_Symbols>
+
+    <Feed_DotNetTools_Internal_Shipping>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools-internal/nuget/v3/index.json</Feed_DotNetTools_Internal_Shipping>
+    <Feed_DotNetTools_Internal_Transport>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools-internal/nuget/v3/index.json</Feed_DotNetTools_Internal_Transport>
+    <Feed_DotNetTools_Internal_Symbols>https://pkgs.dev.azure.com/dnceng/internal/_packaging/dotnet-tools-internal-symbols/nuget/v3/index.json</Feed_DotNetTools_Internal_Symbols>
+
+    <Feed_DotNet31_Shipping>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1/nuget/v3/index.json</Feed_DotNet31_Shipping>
+    <Feed_DotNet31_Transport>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-transport/nuget/v3/index.json</Feed_DotNet31_Transport>
+    <Feed_DotNet31_Symbols>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-symbols/nuget/v3/index.json</Feed_DotNet31_Symbols>
+
+    <Feed_DotNet31_Internal_Shipping>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-internal/nuget/v3/index.json</Feed_DotNet31_Internal_Shipping>
+    <Feed_DotNet31_Internal_Transport>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-internal-transport/nuget/v3/index.json</Feed_DotNet31_Internal_Transport>
+    <Feed_DotNet31_Internal_Symbols>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-internal-symbols/nuget/v3/index.json</Feed_DotNet31_Internal_Symbols>
+
+    <Feed_DotNet5_Shipping>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5/nuget/v3/index.json</Feed_DotNet5_Shipping>
+    <Feed_DotNet5_Transport>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5-transport/nuget/v3/index.json</Feed_DotNet5_Transport>
+    <Feed_DotNet5_Symbols>https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet5-symbols/nuget/v3/index.json</Feed_DotNet5_Symbols>
+  </PropertyGroup>
+  
+  <!-- Configs for channels targeting infra version 2.0 -->
+  <ItemGroup>
+    <!-- .NET 5 Dev -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="131"
+      akaMSChannelName="net5/dev"
+      transportFeed="$(Feed_DotNet5_Transport)"
+      shippingFeed="$(Feed_DotNet5_Shipping)"
+      symbolsFeed="$(Feed_DotNet5_Symbols)"
+    />
+
+    <!-- .NET 5 Preview 3 -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="739"
+      akaMSChannelName="net5/preview3"
+      transportFeed="$(Feed_DotNet5_Transport)"
+      shippingFeed="$(Feed_DotNet5_Shipping)"
+      symbolsFeed="$(Feed_DotNet5_Symbols)"
+    />
+
+    <!-- .NET 5 Preview 4 -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="856"
+      akaMSChannelName="net5/preview4"
+      transportFeed="$(Feed_DotNet5_Transport)"
+      shippingFeed="$(Feed_DotNet5_Shipping)"
+      symbolsFeed="$(Feed_DotNet5_Symbols)"
+    />
+
+    <!-- .NET 5 Preview 5 -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="857"
+      akaMSChannelName="net5/preview5"
+      transportFeed="$(Feed_DotNet5_Transport)"
+      shippingFeed="$(Feed_DotNet5_Shipping)"
+      symbolsFeed="$(Feed_DotNet5_Symbols)"
+    />
+
+    <!-- .NET Eng - Latest -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="2"
+      akaMSChannelName="eng/daily"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+  
+    <!-- .NET Eng - Validation -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="9"
+      akaMSChannelName="eng/validation"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+
+    <!-- General Testing -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="529"
+      akaMSChannelName="generaltesting"
+      transportFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/general-testing/nuget/v3/index.json"
+      shippingFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/general-testing/nuget/v3/index.json"
+      symbolsFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/general-testing-symbols/nuget/v3/index.json"
+    />
+
+    <!-- NET Core Tooling Dev -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="548"
+      transportFeed="$(Feed_DotNetTools_Transport)"
+      shippingFeed="$(Feed_DotNetTools_Shipping)"
+      symbolsFeed="$(Feed_DotNetTools_Symbols)"
+    />
+
+    <!-- .NET Core Tooling Release -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="549"
+      transportFeed="$(Feed_DotNetTools_Transport)"
+      shippingFeed="$(Feed_DotNetTools_Shipping)"
+      symbolsFeed="$(Feed_DotNetTools_Symbols)"
+    />
+
+    <!-- .NET Internal Tooling -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="551"
+      transportFeed="$(Feed_DotNetTools_Internal_Transport)"
+      shippingFeed="$(Feed_DotNetTools_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNetTools_Internal_Symbols)"
+    />
+
+    <!-- .NET Core Experimental -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="562"
+      transportFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-experimental/nuget/v3/index.json"
+      shippingFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-experimental/nuget/v3/index.json"
+      symbolsFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet-experimental-symbols/nuget/v3/index.json"
+    />
+
+    <!-- .NET Eng Services - Int -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="678"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+
+    <!-- .NET Eng Services - Prod -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="679"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.3xx -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="759"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.3xx Internal -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="760"
+      transportFeed="$(Feed_DotNet31_Internal_Transport)"
+      shippingFeed="$(Feed_DotNet31_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Internal_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.4xx -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="921"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.4xx Internal -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="922"
+      transportFeed="$(Feed_DotNet31_Internal_Transport)"
+      shippingFeed="$(Feed_DotNet31_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Internal_Symbols)"
+    />
+
+
+    <!-- .NET Core 3.1 Dev -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="128"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET 3 Tools - Validation -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="390"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+
+    <!-- .NET 3 Tools -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="344"
+      transportFeed="$(Feed_DotNetEng_Transport)"
+      shippingFeed="$(Feed_DotNetEng_Shipping)"
+      symbolsFeed="$(Feed_DotNetEng_Symbols)"
+    />
+
+    <!-- .NET Core 3.1 Release -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="129"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET Core 3.1 Blazor Features -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="531"
+      transportFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-blazor/nuget/v3/index.json"
+      shippingFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-blazor/nuget/v3/index.json"
+      symbolsFeed="https://pkgs.dev.azure.com/dnceng/public/_packaging/dotnet3.1-blazor-symbols/nuget/v3/index.json"
+    />
+
+    <!-- .NET Core 3.1 Internal Servicing -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="550"
+      transportFeed="$(Feed_DotNet31_Internal_Transport)"
+      shippingFeed="$(Feed_DotNet31_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Internal_Symbols)"
+    />
+
+    <!-- .NET Core Tooling Dev -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="548"
+      transportFeed="$(Feed_DotNetTools_Transport)"
+      shippingFeed="$(Feed_DotNetTools_Shipping)"
+      symbolsFeed="$(Feed_DotNetTools_Symbols)"
+    />
+
+    <!-- .NET Core Tooling Release -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="549"
+      transportFeed="$(Feed_DotNetTools_Transport)"
+      shippingFeed="$(Feed_DotNetTools_Shipping)"
+      symbolsFeed="$(Feed_DotNetTools_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.1xx -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="560"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.1xx Internal -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="559"
+      transportFeed="$(Feed_DotNet31_Internal_Transport)"
+      shippingFeed="$(Feed_DotNet31_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Internal_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.2xx -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="558"
+      transportFeed="$(Feed_DotNet31_Transport)"
+      shippingFeed="$(Feed_DotNet31_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Symbols)"
+    />
+
+    <!-- .NET Core SDK 3.1.2xx Internal -->
+    <PublishingChannel
+      publishingVersion="2"
+      channelId="557"
+      transportFeed="$(Feed_DotNet31_Internal_Transport)"
+      shippingFeed="$(Feed_DotNet31_Internal_Shipping)"
+      symbolsFeed="$(Feed_DotNet31_Internal_Symbols)"
+    />
+
+  </ItemGroup>
+
+</Project>
