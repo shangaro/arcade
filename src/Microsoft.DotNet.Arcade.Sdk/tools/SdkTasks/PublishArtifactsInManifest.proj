@@ -2,38 +2,37 @@
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Execute">
   <!--
     Parameters:
-      - BARBuildId
-      - IsInternalBuild
-      - TargetChannels
-      - NugetPath
-      - SkipSafetyChecks
-      - ArtifactsCategory
+      - BARBuildId                          : Build BAR ID
+      - IsInternalBuild                     : Whether the build is internal or not
+      - TargetChannels                      : Which channels the build should be published to
+      - NugetPath                           : Full path to nuget.exe; this is used to publish to AzDO feeds
+      - SkipSafetyChecks                    : Whether safety checks should be disabled; i.e., validate publishing an internal build to an public feed, etc.
+      - ArtifactsCategory                   : ArtifactCategory mapping to a public feed; This is used to override the public target feed of public builds.
       
-      - AzureDevOpsFeedsKey 
-      - AzureStorageTargetFeedKey 
+      - AzureDevOpsFeedsKey                 : Key used to publish to any AzDO feed
+      - AzureStorageTargetFeedKey           : Key used to publish to any Azure feed
       
+      - MaestroApiEndpoint                  : Endpoint to connect to Maestro
+      - BuildAssetRegistryToken             : Access token to connect to Maestro
       
-      - MaestroApiEndpoint
-      - BuildAssetRegistryToken
-      
-      - ManifestsBasePath
-      - BlobBasePath
-      - PackageBasePath
+      - ManifestsBasePath                   : Full path where build manifests are stored
+      - BlobBasePath                        : Full path where all blobs are found
+      - PackageBasePath                     : Full path where all NuGet packages are stored
 
-      - PublishInstallersAndChecksums   : This control whether installers & checksums should be published to 
-                                        : public feeds on public builds. It's always true for internal builds.
+      - PublishInstallersAndChecksums       : This control whether installers & checksums should be published to 
+                                            : public feeds on public builds. It's always true for internal builds.
 
-      - InstallersAzureAccountKey
-      - InternalInstallersBlobFeedKey
-      - ChecksumsAzureAccountKey
-      - InternalChecksumsBlobFeedKey
+      - InstallersAzureAccountKey           : Key to the storage account where public installers should be placed
+      - InternalInstallersAzureAccountKey   : Key to the storage account where installers from *internal* builds should be placed
+      - ChecksumsAzureAccountKey            : Key to the storage account where public checksums should be placed
+      - InternalChecksumsAzureAccountKey    : Key to the storage account where checksums from *internal* builds should be placed
       
       Optional aka.ms link generation parameters:
-        - AkaMSClientId                 : Client ID for the aka.ms AD application
-        - AkaMSClientSecret             : Client secret for the aka.ms AD application
-        - AkaMSTenant                   : Tenant ID for aka.ms link generation. Defaults to ncd
-        - AkaMSOwners                   : Semi-colon delimited list of aliases of the owners of generated links. Defaults to dn-bot
-        - AkaMSCreatedBy                : Semi-colon delimited list of aliases of the creator/updator links. Defaults to dn-bot
+        - AkaMSClientId                     : Client ID for the aka.ms AD application
+        - AkaMSClientSecret                 : Client secret for the aka.ms AD application
+        - AkaMSTenant                       : Tenant ID for aka.ms link generation. Defaults to ncd
+        - AkaMSOwners                       : Semi-colon delimited list of aliases of the owners of generated links. Defaults to dn-bot
+        - AkaMSCreatedBy                    : Semi-colon delimited list of aliases of the creator/updator links. Defaults to dn-bot
   -->
 
   <PropertyGroup>
@@ -54,8 +53,8 @@
       <AkaMSOwners Condition="'$(AkaMSOwners)' == ''">dn-bot</AkaMSOwners>
       <AkaMSCreatedBy Condition="'$(AkaMSCreatedBy)' == ''">dn-bot</AkaMSCreatedBy>
 
-      <InstallersAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalInstallersBlobFeedKey)</InstallersAzureAccountKey>
-      <ChecksumsAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalChecksumsBlobFeedKey)</ChecksumsAzureAccountKey>
+      <InstallersAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalInstallersAzureAccountKey)</InstallersAzureAccountKey>
+      <ChecksumsAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalChecksumsAzureAccountKey)</ChecksumsAzureAccountKey>
     </PropertyGroup>
 
     <Error
