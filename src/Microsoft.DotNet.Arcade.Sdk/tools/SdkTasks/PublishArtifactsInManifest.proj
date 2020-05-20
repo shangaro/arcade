@@ -1,32 +1,32 @@
 <!-- Licensed to the .NET Foundation under one or more agreements. The .NET Foundation licenses this file to you under the MIT license. See the LICENSE file in the project root for more information. -->
 <Project Sdk="Microsoft.NET.Sdk" DefaultTargets="Execute">
   <!--
-    The target in this file initially calls `SetupTargetFeeds.proj` to create the list of
-    target feed descriptors for the artifacts and then calls the `PublishArtifactsInManifest` 
-    task (from Tasks.Feed) to publish the artifacts described in the informed build manifest.
-    
     Parameters:
+      - BARBuildId
+      - IsInternalBuild
+      - TargetChannels
+      - NugetPath
+      - SkipSafetyChecks
+      - ArtifactsCategory
+      
+      - AzureDevOpsFeedsKey 
+      - AzureStorageTargetFeedKey 
+      
+      
+      - MaestroApiEndpoint
+      - BuildAssetRegistryToken
+      
       - ManifestsBasePath
       - BlobBasePath
       - PackageBasePath
-      - BARBuildId
-      - MaestroApiEndpoint
-      - BuildAssetRegistryToken
-      - NugetPath
 
-    Parameters required by SetupTargetFeeds.proj:
-      - IsInternalBuild
-      - IsStableBuild
-      - RepositoryName
-      - CommitSha
-      - AzureStorageAccountName
-      - AzureStorageAccountKey
-      - AzureDevOpsFeedsBaseUrl
-      - ArtifactsCategory
-      - AzureStorageTargetFeedPAT
+      - PublishInstallersAndChecksums   : This control whether installers & checksums should be published to 
+                                        : public feeds on public builds. It's always true for internal builds.
 
-    Optional parameters for SetupTargetFeeds.proj
-      - PublishInstallersAndChecksums   : This control whether installers & checksums should be published to public feeds on public builds
+      - InstallersAzureAccountKey
+      - InternalInstallersBlobFeedKey
+      - ChecksumsAzureAccountKey
+      - InternalChecksumsBlobFeedKey
       
       Optional aka.ms link generation parameters:
         - AkaMSClientId                 : Client ID for the aka.ms AD application
@@ -34,26 +34,12 @@
         - AkaMSTenant                   : Tenant ID for aka.ms link generation. Defaults to ncd
         - AkaMSOwners                   : Semi-colon delimited list of aliases of the owners of generated links. Defaults to dn-bot
         - AkaMSCreatedBy                : Semi-colon delimited list of aliases of the creator/updator links. Defaults to dn-bot
-      
-      Parameters for public builds:
-          - InstallersTargetStaticFeed
-          - InstallersAzureAccountKey
-          - ChecksumsTargetStaticFeed
-          - ChecksumsAzureAccountKey
-        
-      Parameters for internal builds:
-          - InternalInstallersTargetStaticFeed
-          - InternalInstallersTargetStaticFeedKey
-          - InternalChecksumsTargetStaticFeed
-          - InternalChecksumsTargetStaticFeedKey
   -->
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.1</TargetFramework>
     <NETCORE_ENGINEERING_TELEMETRY>Publish</NETCORE_ENGINEERING_TELEMETRY>
   </PropertyGroup>
-
-  <Import Project="SetupTargetFeeds.proj" />
 
   <Target Name="Execute" DependsOnTargets="SetupTargetFeeds">
     <Error Condition="'$(ManifestsBasePath)' == ''" Text="ManifestsBasePath is empty. Please provide the full path to asset manifest(s) directory." />
@@ -67,25 +53,34 @@
       <AkaMSTenant Condition="'$(AkaMSTenant)' == ''">ncd</AkaMSTenant>
       <AkaMSOwners Condition="'$(AkaMSOwners)' == ''">dn-bot</AkaMSOwners>
       <AkaMSCreatedBy Condition="'$(AkaMSCreatedBy)' == ''">dn-bot</AkaMSCreatedBy>
+
+      <InstallersAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalInstallersBlobFeedKey)</InstallersAzureAccountKey>
+      <ChecksumsAzureAccountKey Condition="'$(IsInternalBuild)' == 'true'">$(InternalChecksumsBlobFeedKey)</ChecksumsAzureAccountKey>
     </PropertyGroup>
 
     <Error
       Condition="'@(ManifestFiles)' == ''"
       Text="No manifest file was found in the provided path: $(ManifestsBasePath)" />
 
-    <!-- 
-      Publish artifacts from all manifests.
-    -->
     <PublishArtifactsInManifest
-      InternalBuild="$(IsInternalBuild)"
-      TargetFeedConfig="@(TargetFeedConfig)"
       BARBuildId="$(BARBuildId)"
+      InternalBuild="$(IsInternalBuild)"
+      TargetChannels="$(TargetChannels)"
+      NugetPath="$(NugetPath)"
+      SkipSafetyChecks="$(SkipSafetyChecks)"
+      ArtifactsCategory="$(ArtifactsCategory)"
+      
       MaestroApiEndpoint="$(MaestroApiEndpoint)"
       BuildAssetRegistryToken="$(BuildAssetRegistryToken)"
+      
       AssetManifestPaths="@(ManifestFiles)"
       BlobAssetsBasePath="$(BlobBasePath)"
       PackageAssetsBasePath="$(PackageBasePath)"
-      NugetPath="$(NugetPath)"
+      
+      PublishInstallersAndChecksums="$(PublishInstallersAndChecksums)"
+      InstallersAzureAccountKey="$(InstallersAzureAccountKey)"
+      ChecksumsAzureAccountKey="$(ChecksumsAzureAccountKey)"
+
       AkaMSClientId="$(AkaMSClientId)"
       AkaMSClientSecret="$(AkaMSClientSecret)"
       AkaMSTenant="$(AkaMSTenant)"
