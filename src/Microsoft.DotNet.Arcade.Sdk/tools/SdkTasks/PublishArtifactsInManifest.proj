@@ -78,8 +78,10 @@
       PackageAssetsBasePath="$(PackageBasePath)"
       
       PublishInstallersAndChecksums="$(PublishInstallersAndChecksums)"
-      InstallersAzureAccountKey="$(InstallersAzureAccountKey)"
-      ChecksumsAzureAccountKey="$(ChecksumsAzureAccountKey)"
+      InstallersFeedKey="$(InstallersAzureAccountKey)"
+      ChecksumsFeedKey="$(ChecksumsAzureAccountKey)"
+      AzureDevOpsFeedsKey="$(AzureDevOpsFeedsKey)"
+      AzureStorageTargetFeedKey="$(AzureStorageTargetFeedKey)"
 
       AkaMSClientId="$(AkaMSClientId)"
       AkaMSClientSecret="$(AkaMSClientSecret)"
