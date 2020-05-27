@@ -91,6 +91,10 @@ try {
   CheckExitCode "Adding source to NuGet.config"
 
   Write-Host "Updating Dependencies using Darc..."
+  
+  # Initialize the cli so the runtime is on the path. Should just use the same version installed
+  # when common\cibuild.cmd was run.
+  InitializeDotNetCli $true
 
   . .\common\darc-init.ps1
   CheckExitCode "Running darc-init"
