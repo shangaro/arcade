@@ -94,7 +94,8 @@ try {
   
   # Initialize the cli so the runtime is on the path. Should just use the same version installed
   # when common\cibuild.cmd was run.
-  InitializeDotNetCli $true
+  $dotNetRoot = InitializeDotNetCli $true
+  $env:PATH = "$dotNetRoot;$env:PATH"
 
   . .\common\darc-init.ps1
   CheckExitCode "Running darc-init"
