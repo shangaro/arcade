@@ -28,7 +28,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             string manifestCommit,
             string[] manifestBuildData,
             bool isStableBuild,
-            PublishingInfraVersion publishingVersion)
+            PublishingInfraVersion publishingVersion,
+            string legacyManifestVersion)
         {
             CreateModel(
                 blobArtifacts,
@@ -40,6 +41,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 manifestCommit,
                 isStableBuild,
                 publishingVersion,
+                legacyManifestVersion,
                 log)
                 .WriteAsXml(assetManifestPath, log);
         }
@@ -63,6 +65,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             string repoCommit,
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
+            string legacyManifestVersion,
             TaskLoggingHelper log)
         {
             if (artifacts == null)
@@ -109,6 +112,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 repoCommit,
                 isStableBuild,
                 publishingVersion,
+                legacyManifestVersion,
                 log);
             return buildModel;
         }
@@ -122,6 +126,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             string manifestCommit,
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
+            string legacyManifestVersion,
             TaskLoggingHelper log)
         {
             var attributes = MSBuildListSplitter.GetNamedProperties(manifestBuildData);
@@ -138,7 +143,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                         Branch = manifestBranch,
                         Commit = manifestCommit,
                         IsStable = isStableBuild.ToString(),
-                        PublishingVersion = publishingVersion
+                        PublishingVersion = publishingVersion,
+                        LegacyPublishingVersion = legacyManifestVersion
                     });
 
             buildModel.Artifacts.Blobs.AddRange(blobArtifacts);
