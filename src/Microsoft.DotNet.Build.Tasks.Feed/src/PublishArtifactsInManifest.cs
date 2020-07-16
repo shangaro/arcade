@@ -212,7 +212,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
 
             BuildModel buildModel = BuildManifestUtil.ManifestFileToModel(manifestFullPath, Log);
 
-            if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Legacy && buildModel.Identity.LegacyPublishingVersion == "v2")
+            if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Legacy && buildModel.Identity.LegacyPublishingVersion == "V2")
             {
                 return ConstructPublishingV2Task(buildModel);
             }
