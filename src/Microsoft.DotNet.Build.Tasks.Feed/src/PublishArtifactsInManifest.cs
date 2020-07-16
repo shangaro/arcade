@@ -168,9 +168,9 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                     // Currently a build can produce several build manifests and publish them independently.
                     // It's also possible that somehow we have manifests using different versions of the publishing infra.
                     //
-                    // The V3 infra, once all assets have been published, promotes the build to the target channels informed. 
+                    // The V3 infra, once all assets have been published, promotes the build to the target channels informed.
                     // Since we can have multiple manifests (perhaps using different versions), things
-                    // get a bit more complicated. For now, we are going to just promote the build to the target 
+                    // get a bit more complicated. For now, we are going to just promote the build to the target
                     // channels if it creates at least one V3 manifest.
                     //
                     // There is an issue to merge all build manifests into a single one before publishing:
@@ -211,11 +211,10 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             }
 
             BuildModel buildModel = BuildManifestUtil.ManifestFileToModel(manifestFullPath, Log);
-            
-            if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Legacy)
+
+            if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Legacy && buildModel.Identity.LegacyPublishingVersion == "v2")
             {
-                Log.LogError("This task is not able to handle legacy manifests.");
-                return null;
+                return ConstructPublishingV2Task(buildModel);
             }
             else if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Latest)
             {

@@ -147,7 +147,8 @@
       ManifestCommit="$(BUILD_SOURCEVERSION)"
       IsStableBuild="$(IsStableBuild)"
       PublishingVersion="$(PublishingVersion)"
-      AssetManifestPath="$(AssetManifestFilePath)" />
+      AssetManifestPath="$(AssetManifestFilePath)" 
+      LegacyManifestVersion="$(LegacyVersion)"/>
 
     <!-- 
         Publish Windows PDBs produced by SymStore.targets (by default, only shipping PDBs are placed there).

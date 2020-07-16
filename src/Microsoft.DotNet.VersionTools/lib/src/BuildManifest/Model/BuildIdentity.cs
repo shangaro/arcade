@@ -30,7 +30,8 @@ namespace Microsoft.DotNet.VersionTools.BuildManifest.Model
             nameof(BuildId),
             nameof(ProductVersion),
             nameof(Branch),
-            nameof(Commit)
+            nameof(Commit),
+            nameof(LegacyPublishingVersion)
         };
 
         private static readonly string[] RequiredAttributes =
@@ -100,6 +101,12 @@ namespace Microsoft.DotNet.VersionTools.BuildManifest.Model
             set {
                 Attributes[nameof(PublishingVersion)] = ((int)value).ToString(); 
             }
+        }
+
+        public string LegacyPublishingVersion
+        {
+            get { return Attributes.GetOrDefault(nameof(LegacyPublishingVersion)); }
+            set { Attributes[nameof(LegacyPublishingVersion)] = value; }
         }
 
         public override string ToString()

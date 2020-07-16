@@ -19,6 +19,24 @@ namespace Microsoft.DotNet.Build.Tasks.Feed.Tests
         private const string RandomToken = "abcd";
         private const string BlobFeedUrl = "https://dotnetfeed.blob.core.windows.net/dotnet-core/index.json";
 
+
+        [Fact]
+        public void ConstructLegacyPublishingTask()
+        {
+            var testInputs = Path.Combine(Path.GetDirectoryName(typeof(PublishArtifactsInManifestTests).Assembly.Location), "TestInputs", "Manifests");
+            var manifestFullPath = Path.Combine(testInputs, "SampleLegacy.xml");
+
+            var buildEngine = new MockBuildEngine();
+            var task = new PublishArtifactsInManifest()
+            {
+                BuildEngine = buildEngine,
+                TargetChannels = GeneralTestingChannelId
+            };
+
+            var which = task.WhichPublishingTask(manifestFullPath);
+
+            Assert.IsType<PublishArtifactsInManifestV2>(which);
+        }
         [Fact]
         public void ConstructV2PublishingTask()
         {
