@@ -65,7 +65,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             string repoCommit,
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
-            string legacyManifestVersion,
+            string legacyPublishingVersion,
             TaskLoggingHelper log)
         {
             if (artifacts == null)
@@ -112,7 +112,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 repoCommit,
                 isStableBuild,
                 publishingVersion,
-                legacyManifestVersion,
+                legacyPublishingVersion,
                 log);
             return buildModel;
         }
@@ -126,7 +126,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             string manifestCommit,
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
-            string legacyManifestVersion,
+            string legacyPublishingVersion,
             TaskLoggingHelper log)
         {
             var attributes = MSBuildListSplitter.GetNamedProperties(manifestBuildData);
@@ -144,7 +144,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                         Commit = manifestCommit,
                         IsStable = isStableBuild.ToString(),
                         PublishingVersion = publishingVersion,
-                        LegacyPublishingVersion = legacyManifestVersion
+                        LegacyPublishingVersion = legacyPublishingVersion
                     });
 
             buildModel.Artifacts.Blobs.AddRange(blobArtifacts);

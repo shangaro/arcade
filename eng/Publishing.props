@@ -1,6 +1,6 @@
  <Project>
  <PropertyGroup>
     <PublishingVersion>1</PublishingVersion>
-    <LegacyPublishingVersion>V2</LegacyPublishingVersion>
+    <LegacyManifestVersion>V2</LegacyManifestVersion>
   </PropertyGroup>
 </Project>

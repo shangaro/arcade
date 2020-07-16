@@ -41,6 +41,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public string PublishingVersion { get; set; }
 
+        public string LegacyPublishingVersion { get; set; }
+
         public override bool Execute()
         {
             try
@@ -161,7 +163,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                         ManifestCommit,
                         ManifestBuildData,
                         IsStableBuild,
-                        targetPublishingVersion);
+                        targetPublishingVersion,
+                        LegacyPublishingVersion);
 
                     Log.LogMessage(MessageImportance.High,
                         $"##vso[artifact.upload containerfolder=AssetManifests;artifactname=AssetManifests]{AssetManifestPath}");

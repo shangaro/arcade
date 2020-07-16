@@ -68,6 +68,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public string PublishingVersion { get; set; }
 
+        public string LegacyManifestVersion { get; set; }
+
         public override bool Execute()
         {
             try
@@ -92,6 +94,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                     RepoCommit,
                     IsStableBuild,
                     targetPublishingVersion,
+                    LegacyManifestVersion,
                     Log);
 
                 buildModel.WriteAsXml(OutputPath, Log);
