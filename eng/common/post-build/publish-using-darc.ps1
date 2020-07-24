@@ -49,7 +49,7 @@ try {
     }
   }
 
-#   --publishing-infra-version $PublishingInfraVersion `
+--publishing-infra-version $PublishingInfraVersion `
   & darc add-build-to-channel `
 	--id $buildId `
 	--default-channels `
