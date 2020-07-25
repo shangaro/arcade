@@ -41,6 +41,8 @@
                            RepoUri="$(BUILD_REPOSITORY_URI)"
                            RepoBranch="$(BUILD_SOURCEBRANCH)"
                            RepoCommit="$(BUILD_SOURCEVERSION)" 
-                           AzureDevOpsCollectionUri="test"/>
+                           AzureDevOpsCollectionUri="test"
+                           AzureDevOpsProject="test"
+                           AzureDevOpsBuildId="test"/>/>
   </Target>
 </Project>

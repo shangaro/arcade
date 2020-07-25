@@ -22,6 +22,9 @@
     <StrongNameSignInfo Include="StrongName" PublicKeyToken="b03f5f7f11d50a3a" CertificateName="Microsoft400" />
     <StrongNameSignInfo Include="$(MSBuildThisFileDirectory)snk\Open.snk" PublicKeyToken="cc7b13ffcd2ddd51" CertificateName="Microsoft400" />
 
+    <AzureDevOpsCollectionUri Include="test"/>
+    <AzureDevOpsProject Include="test"/>
+    <AzureDevOpsBuildId Include="test"/>
     <!--
       Map of file extensions to default certificate name. Files with these extensions are
       signed with the specified certificate. Particularly useful for files that don't have
