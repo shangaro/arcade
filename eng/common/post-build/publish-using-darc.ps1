@@ -49,9 +49,9 @@ try {
     }
   }
 
-#   --publishing-infra-version $PublishingInfraVersion `
   & darc add-build-to-channel `
-	--id $buildId `
+  --id $buildId `
+  --publishing-infra-version $PublishingInfraVersion `
 	--default-channels `
 	--source-branch master `
 	--azdev-pat $AzdoToken `
