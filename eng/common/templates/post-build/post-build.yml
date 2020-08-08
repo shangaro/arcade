@@ -3,7 +3,6 @@ parameters:
   # Publishing V2 accepts optionally outlining the publishing stages - default is inline.
   # Publishing V3 DOES NOT accept inlining the publishing stages.
   publishingInfraVersion: 3
-
   # When set to true the publishing templates from the repo will be used
   # otherwise Darc add-build-to-channel will be used to trigger the promotion pipeline
   inline: true
@@ -18,6 +17,7 @@ parameters:
 
   enableSourceLinkValidation: false
   enableSigningValidation: true
+  enableSymbolValidation: false
   enableNugetValidation: true
   publishInstallersAndChecksums: false
   SDLValidationParameters:
@@ -74,10 +74,7 @@ stages:
       - template: common-variables.yml
     jobs:
     - template: setup-maestro-vars.yml
-      parameters:
-        BARBuildId: ${{ parameters.BARBuildId }}
-        PromoteToChannelIds: ${{ parameters.PromoteToChannelIds }}
-        
+
     - job:
       displayName: Publish Using Darc
       dependsOn: setupMaestroVars
@@ -114,7 +111,7 @@ stages:
       parameters:
         BARBuildId: ${{ parameters.BARBuildId }}
         PromoteToChannelIds: ${{ parameters.PromoteToChannelIds }}
-        
+
     - job:
       displayName: Post-build Checks
       dependsOn: setupMaestroVars
@@ -579,6 +576,8 @@ stages:
 
   - template: \eng\common\templates\post-build\channels\generic-public-channel.yml
     parameters:
+      BARBuildId: ${{ parameters.BARBuildId }}
+      PromoteToChannelIds: ${{ parameters.PromoteToChannelIds }}
       artifactsPublishingAdditionalParameters: ${{ parameters.artifactsPublishingAdditionalParameters }}
       dependsOn: ${{ parameters.publishDependsOn }}
       publishInstallersAndChecksums: ${{ parameters.publishInstallersAndChecksums }}
