@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Dependencies>
   <ProductDependencies>
-    <Dependency Name="Microsoft.SymbolUploader.Build.Task" Version="1.1.136702">
+    <Dependency Name="Microsoft.SymbolUploader.Build.Task" Version="1.1.140604">
       <Uri>https://dev.azure.com/dnceng/internal/_git/dotnet-symuploader</Uri>
-      <Sha>5f54166e2f767c4feee5415eaf97d058206df63f</Sha>
+      <Sha>e5e1812b5cd3e2e0ba11071d2670fa4dceaae497</Sha>
     </Dependency>
   </ProductDependencies>
   <ToolsetDependencies>
@@ -35,13 +35,13 @@
       <Uri>https://github.com/dotnet/arcade-services</Uri>
       <Sha>a737c3adb903bcc7210be969dcc9cf860e33e17e</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.XHarness.CLI" Version="1.0.0-prerelease.20352.3">
+    <Dependency Name="Microsoft.DotNet.XHarness.CLI" Version="1.0.0-prerelease.20403.2">
       <Uri>https://github.com/dotnet/xharness</Uri>
-      <Sha>5c95b40b725e1aa9d596411c453900385cf6f84c</Sha>
+      <Sha>abc6d581ce00214ef763fb8510d1ba0aa54e7717</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="3.8.0-1.20361.1">
+    <Dependency Name="Microsoft.Net.Compilers.Toolset" Version="3.8.0-2.20408.4">
       <Uri>https://github.com/dotnet/roslyn</Uri>
-      <Sha>f24d2c5c98211908ab90d6f1f42e7592411d6058</Sha>
+      <Sha>5134510ab3f0166a5d4b1a9fd05f227b6827db0c</Sha>
     </Dependency>
     <Dependency Name="Microsoft.SourceLink" Version="1.0.0-beta2-19554-01">
       <Uri>https://github.com/dotnet/sourcelink</Uri>
