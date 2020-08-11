@@ -75,4 +75,4 @@ jobs:
       env:
         MAESTRO_API_TOKEN: $(MaestroApiAccessToken)
         BARBuildId: ${{ parameters.BARBuildId }}
-        PromoteToMaestroChannels: ${{ parameters.PromoteToChannelIds 
+        PromoteToMaestroChannels: ${{ parameters.PromoteToChannelIds }}
