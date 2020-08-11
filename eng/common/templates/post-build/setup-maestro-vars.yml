@@ -27,7 +27,7 @@ jobs:
         targetType: inline
         script: |
           try {
-            if (!$Env:PromoteToMaestroChannels -or -and $Env:PromoteToMaestroChannel.Trim() -eq '') {
+            if (!$Env:PromoteToMaestroChannels -or $Env:PromoteToMaestroChannel.Trim() -eq '') {
               $Content = Get-Content $(Build.StagingDirectory)/ReleaseConfigs/ReleaseConfigs.txt
 
               $BarId = $Content | Select -Index 0
