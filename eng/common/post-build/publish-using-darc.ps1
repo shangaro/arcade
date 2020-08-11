@@ -51,9 +51,9 @@ try {
 
   & darc add-build-to-channel `
 	--id $buildId `
+  --default-channels `
   --publishing-infra-version $PublishingInfraVersion `
-	--default-channels `
-	--source-branch master `
+	--source-branch publish `
 	--azdev-pat $AzdoToken `
 	--bar-uri $MaestroApiEndPoint `
 	--password $MaestroToken `
