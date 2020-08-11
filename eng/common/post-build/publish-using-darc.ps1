@@ -53,7 +53,7 @@ try {
 	--id $buildId `
   --publishing-infra-version $PublishingInfraVersion `
 	--default-channels `
-	--source-branch master `
+	--source-branch test `
 	--azdev-pat $AzdoToken `
 	--bar-uri $MaestroApiEndPoint `
 	--password $MaestroToken `
