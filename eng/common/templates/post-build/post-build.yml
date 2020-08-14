@@ -262,7 +262,7 @@ stages:
               -AzdoToken '$(publishing-dnceng-devdiv-code-r-build-re)'
               -MaestroToken '$(MaestroApiAccessToken)'
               -WaitPublishingFinish ${{ parameters.waitPublishingFinish }}
-              -PublishInstallersAndChecksums ${{ parameters.publishInstallersAndChecksums }}'
+              -PublishInstallersAndChecksums ${{ parameters.publishInstallersAndChecksums }}
 
 - ${{ if and(le(parameters.publishingInfraVersion, 2), eq(parameters.inline, 'true')) }}:
   - template: \eng\common\templates\post-build\channels\generic-public-channel.yml
