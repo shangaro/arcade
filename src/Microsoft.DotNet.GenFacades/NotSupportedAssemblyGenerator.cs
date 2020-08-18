@@ -91,6 +91,7 @@ namespace Microsoft.DotNet.GenFacades
 
     internal class NotSupportedAssemblyRewriter : CSharpSyntaxRewriter
     {
+        private const string emptyBody = "{ }\n";
         private string _message;
         private IEnumerable<string> _exclusionApis;
 
@@ -104,7 +105,7 @@ namespace Microsoft.DotNet.GenFacades
             {
                 _message = message;
             }
-            _exclusionApis = exclusionApis.Select(t => t.Substring(t.IndexOf(':') + 1));
+            _exclusionApis = exclusionApis?.Select(t => t.Substring(t.IndexOf(':') + 1));
         }
 
         public override SyntaxNode VisitMethodDeclaration(MethodDeclarationSyntax node)
@@ -115,7 +116,15 @@ namespace Microsoft.DotNet.GenFacades
             if (_exclusionApis != null && _exclusionApis.Contains(GetMethodDefinition(node)))
                 return null;
 
-            BlockSyntax block = (BlockSyntax)SyntaxFactory.ParseStatement(GetDefaultMessage());
+            BlockSyntax block;
+            if (node.Identifier.ValueText == "Dispose" || node.Identifier.ValueText == "Finalize")
+            {
+                block = (BlockSyntax)SyntaxFactory.ParseStatement(emptyBody);
+            }
+            else
+            {
+                block = (BlockSyntax)SyntaxFactory.ParseStatement(GetDefaultMessage());
+            }
             return node.WithBody(block);
         }
 
@@ -135,7 +144,7 @@ namespace Microsoft.DotNet.GenFacades
 
         public override SyntaxNode VisitDestructorDeclaration(DestructorDeclarationSyntax node)
         {
-            BlockSyntax block = (BlockSyntax)SyntaxFactory.ParseStatement(GetDefaultMessage());
+            BlockSyntax block = (BlockSyntax)SyntaxFactory.ParseStatement(emptyBody);
             return node.WithBody(block);
         }
 
