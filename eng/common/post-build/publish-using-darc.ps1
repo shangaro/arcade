@@ -54,7 +54,7 @@ try {
   --id $buildId `
   --publishing-infra-version $PublishingInfraVersion `
   --default-channels `
-  --source-branch $($env:Build_SourceBranchName) `
+  --source-branch whyisthishappening `
   --azdev-pat $AzdoToken `
   --bar-uri $MaestroApiEndPoint `
   --password $MaestroToken `
