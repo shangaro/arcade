@@ -88,6 +88,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public bool SkipSafetyChecks { get; set; } = false;
 
+        public bool IsReleaseOnlyPackageVersion {get; set; } = false;
+
         /// <summary>
         /// Which build model (i.e., parsed build manifest) the publishing task will operate on.
         /// This is set by the main publishing task before dispatching the execution to one of
@@ -266,9 +268,12 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public void CheckForStableAssetsInNonIsolatedFeeds()
         {
-            if (SkipSafetyChecks)
+            if (!IsReleaseOnlyPackageVersion)
             {
-                return;
+                if (SkipSafetyChecks)
+                {
+                    return;
+                }
             }
 
             foreach (var packagesPerCategory in PackagesByCategory)
