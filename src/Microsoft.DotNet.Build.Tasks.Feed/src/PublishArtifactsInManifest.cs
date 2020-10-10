@@ -214,7 +214,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             }
 
             BuildModel buildModel = BuildManifestUtil.ManifestFileToModel(manifestFullPath, Log);
-            
+
             if (buildModel.Identity.PublishingVersion == PublishingInfraVersion.Legacy)
             {
                 Log.LogError("This task is not able to handle legacy manifests.");
@@ -251,7 +251,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 NugetPath = this.NugetPath,
                 InternalBuild = this.InternalBuild,
                 SkipSafetyChecks = this.SkipSafetyChecks,
-                IsReleaseOnlyPackageVersion = this.IsReleaseOnlyPackageVersion,
+                IsReleaseOnlyPackageVersion = bool.Parse(buildModel.Identity.IsReleaseOnlyPackageVersion.ToLower()),
                 AkaMSClientId = this.AkaMSClientId,
                 AkaMSClientSecret = this.AkaMSClientSecret,
                 AkaMSCreatedBy = this.AkaMSCreatedBy,
@@ -279,7 +279,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 NugetPath = this.NugetPath,
                 InternalBuild = this.InternalBuild,
                 SkipSafetyChecks = this.SkipSafetyChecks,
-                IsReleaseOnlyPackageVersion = this.IsReleaseOnlyPackageVersion,
+                IsReleaseOnlyPackageVersion = bool.Parse(buildModel.Identity.IsReleaseOnlyPackageVersion.ToLower()),
                 AkaMSClientId = this.AkaMSClientId,
                 AkaMSClientSecret = this.AkaMSClientSecret,
                 AkaMSCreatedBy = this.AkaMSCreatedBy,
