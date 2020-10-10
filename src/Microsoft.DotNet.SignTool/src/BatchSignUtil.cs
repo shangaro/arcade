@@ -100,6 +100,7 @@ namespace Microsoft.DotNet.SignTool
             var toSignList = _batchData.FilesToSign.ToList();
             var round = 0;
             var signedSet = new HashSet<SignedFileContentKey>();
+            var repackedSet = new HashSet<SignedFileContentKey>();
 
             bool signFiles(IEnumerable<FileSignInfo> files, out int totalFilesSigned)
             {
@@ -167,7 +168,7 @@ namespace Microsoft.DotNet.SignTool
                 return true;
             }
 
-            void repackFiles(IEnumerable<FileSignInfo> files)
+            void repackFiles(List<FileSignInfo> files)
             {
                 foreach (var file in files)
                 {
@@ -175,11 +176,13 @@ namespace Microsoft.DotNet.SignTool
                     {
                         _log.LogMessage($"Repacking container: '{file.FileName}'");
                         _batchData.ZipDataMap[file.FileContentKey].Repack(_log);
+                        repackedSet.Add(file.FileContentKey);
                     }
                     if (file.IsWixContainer())
                     {
                         _log.LogMessage($"Packing wix container: '{file.FileName}'");
                         _batchData.ZipDataMap[file.FileContentKey].Repack(_log, _signTool.TempDir, _signTool.WixToolsPath);
+                        repackedSet.Add(file.FileContentKey);
                     }
                 }
             }
@@ -191,8 +194,14 @@ namespace Microsoft.DotNet.SignTool
                 if (file.IsContainer())
                 {
                     var zipData = _batchData.ZipDataMap[file.FileContentKey];
-                    return zipData.NestedParts.All(x => !x.FileSignInfo.SignInfo.ShouldSign || 
-                        signedSet.Contains(x.FileSignInfo.FileContentKey));
+                    // All tracked subparts should be either:
+                    // - signed OR
+                    // - not signable AND, if a container, in the repacked set
+                    // It's important to check containers in this case because you can have a container that
+                    // contains no signable parts, but does contain another container that has signable parts.
+                    return zipData.NestedParts.All(x =>
+                        signedSet.Contains(x.FileSignInfo.FileContentKey) ||
+                        (!x.FileSignInfo.SignInfo.ShouldSign && (!x.FileSignInfo.IsContainer() || repackedSet.Contains(x.FileSignInfo.FileContentKey))));
                 }
                 return true;
             }

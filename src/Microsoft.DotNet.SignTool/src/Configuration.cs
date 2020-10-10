@@ -655,7 +655,7 @@ namespace Microsoft.DotNet.SignTool
                             fileSignInfo = TrackFile(tempPath, collisionPriorityId, contentHash, isNested: true, containerPath: zipFileSignInfo.FullPath);
                         }
 
-                        if (fileSignInfo.SignInfo.ShouldSign || fileSignInfo.ForceRepack)
+                        if (fileSignInfo.SignInfo.ShouldSign || fileSignInfo.ForceRepack || fileSignInfo.IsContainer())
                         {
                             nestedParts.Add(new ZipPart(relativePath, fileSignInfo));
                         }
