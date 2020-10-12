@@ -283,6 +283,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed.Tests
 
             const string packageId = "Foo.Package";
 
+            bool IsReleaseOnlyPackageVersion = false;
             BuildModel buildModel = new BuildModel(new BuildIdentity())
             {
                 Artifacts = new ArtifactSet
@@ -305,8 +306,9 @@ namespace Microsoft.DotNet.Build.Tasks.Feed.Tests
             task.SplitArtifactsInCategories(buildModel);
             Assert.False(task.Log.HasLoggedErrors);
 
-            task.CheckForStableAssetsInNonIsolatedFeeds();
+            task.CheckForStableAssetsInNonIsolatedFeeds(IsReleaseOnlyPackageVersion);
             Assert.Equal(shouldError, task.Log.HasLoggedErrors);
+            
             if (shouldError)
             {
                 Assert.Contains(buildEngine.BuildErrorEvents, e => e.Message.Equals($"Package '{packageId}' has stable version '{assetVersion}' but is targeted at a non-isolated feed '{BlobFeedUrl}'"));

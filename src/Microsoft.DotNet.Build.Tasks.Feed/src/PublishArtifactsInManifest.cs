@@ -122,8 +122,6 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public bool SkipSafetyChecks { get; set; } = false;
 
-        public bool IsReleaseOnlyPackageVersion { get; set; } = false;
-
         public string AkaMSClientId { get; set; }
 
         public string AkaMSClientSecret { get; set; }
@@ -251,7 +249,6 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 NugetPath = this.NugetPath,
                 InternalBuild = this.InternalBuild,
                 SkipSafetyChecks = this.SkipSafetyChecks,
-                IsReleaseOnlyPackageVersion = bool.Parse(buildModel.Identity.IsReleaseOnlyPackageVersion.ToLower()),
                 AkaMSClientId = this.AkaMSClientId,
                 AkaMSClientSecret = this.AkaMSClientSecret,
                 AkaMSCreatedBy = this.AkaMSCreatedBy,
@@ -279,7 +276,6 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 NugetPath = this.NugetPath,
                 InternalBuild = this.InternalBuild,
                 SkipSafetyChecks = this.SkipSafetyChecks,
-                IsReleaseOnlyPackageVersion = bool.Parse(buildModel.Identity.IsReleaseOnlyPackageVersion.ToLower()),
                 AkaMSClientId = this.AkaMSClientId,
                 AkaMSClientSecret = this.AkaMSClientSecret,
                 AkaMSCreatedBy = this.AkaMSCreatedBy,
