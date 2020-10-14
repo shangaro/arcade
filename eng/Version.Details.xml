@@ -11,9 +11,9 @@
       <Uri>https://github.com/dotnet/arcade</Uri>
       <Sha>e387f716d83bdbd254818b68edbe884d8547b72e</Sha>
     </Dependency>
-    <Dependency Name="Microsoft.DotNet.Build.Tasks.Feed" Version="6.0.0-beta.20513.8">
+    <Dependency Name="Microsoft.DotNet.Build.Tasks.Feed" Version="6.0.0-beta.20514.4">
       <Uri>https://github.com/dotnet/arcade</Uri>
-      <Sha>3a7c77a742228a21b9e32ca6be6efb481a2b7277</Sha>
+      <Sha>15fb76db5d0897bcf3949c44c7d7e7582c0014fc</Sha>
     </Dependency>
     <Dependency Name="Microsoft.DotNet.SignTool" Version="6.0.0-beta.20508.7">
       <Uri>https://github.com/dotnet/arcade</Uri>
