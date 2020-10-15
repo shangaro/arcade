@@ -54,7 +54,7 @@ try {
   --id $buildId `
   --publishing-infra-version $PublishingInfraVersion `
   --default-channels `
-  --source-branch core-eng-11151 `
+  --source-branch test-feeds-for-core-eng-11151 `
   --azdev-pat $AzdoToken `
   --bar-uri $MaestroApiEndPoint `
   --password $MaestroToken `
