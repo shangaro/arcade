@@ -81,6 +81,11 @@ namespace Microsoft.DotNet.VersionTools.BuildManifest.Model
             set { Attributes[nameof(IsReleaseOnlyPackageVersion)] = value; }
         }
 
+        public string RepositoryUri
+        {
+            get { return Attributes.GetOrDefault(nameof(RepositoryUri)); }
+            set { Attributes[nameof(RepositoryUri)] = value; }
+        }
         public string VersionStamp
         {
             get { return Attributes.GetOrDefault(nameof(VersionStamp)); }

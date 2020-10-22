@@ -54,6 +54,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
 
         public bool IsReleaseOnlyPackageVersion { get; set; }
 
+        public string GithubRepoUri {get; set;}
+
         /// <summary>
         /// Which version should the build manifest be tagged with.
         /// By default he latest version is used.
@@ -185,6 +187,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                         IsStableBuild,
                         targetPublishingVersion,
                         IsReleaseOnlyPackageVersion,
+                        GithubRepoUri,
                         signingInformationModel: signingInformationModel);
 
                     Log.LogMessage(MessageImportance.High,

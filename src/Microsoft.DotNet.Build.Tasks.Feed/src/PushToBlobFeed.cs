@@ -60,6 +60,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
 
         public bool IsReleaseOnlyPackageVersion { get; set; }
 
+        public string GithubUri { get; set;}
+
         public override bool Execute()
         {
             return ExecuteAsync().GetAwaiter().GetResult();
@@ -169,7 +171,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                     ManifestBuildData,
                     IsStableBuild,
                     PublishingInfraVersion.Legacy,
-                    IsReleaseOnlyPackageVersion);
+                    IsReleaseOnlyPackageVersion,
+                    GithubUri);
             }
             catch (Exception e)
             {

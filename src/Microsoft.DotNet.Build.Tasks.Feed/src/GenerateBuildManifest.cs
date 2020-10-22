@@ -112,6 +112,9 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public bool IsReleaseOnlyPackageVersion { get; set; }
 
+
+        public string GithubRepoUri { get; set; }
+
         public override bool Execute()
         {
             try
@@ -145,6 +148,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                     IsStableBuild,
                     targetPublishingVersion,
                     IsReleaseOnlyPackageVersion,
+                    GithubRepoUri,
                     Log);
 
                 buildModel.WriteAsXml(OutputPath, Log);

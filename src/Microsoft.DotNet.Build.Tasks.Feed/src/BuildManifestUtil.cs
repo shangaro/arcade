@@ -29,6 +29,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
             bool isReleaseOnlyPackageVersion,
+            string githubRepoUri,
             SigningInformationModel signingInformationModel = null)
         {
             CreateModel(
@@ -42,6 +43,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 isStableBuild,
                 publishingVersion,
                 isReleaseOnlyPackageVersion,
+                githubRepoUri,
                 log,
                 signingInformationModel: signingInformationModel)
                 .WriteAsXml(assetManifestPath, log);
@@ -75,6 +77,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
             bool isReleaseOnlyPackageVersion,
+            string githubRepoUri,
             TaskLoggingHelper log)
         {
             if (artifacts == null)
@@ -122,6 +125,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                 isStableBuild,
                 publishingVersion,
                 isReleaseOnlyPackageVersion,
+                githubRepoUri,
                 log,
                 signingInformationModel: CreateSigningInformationModelFromItems(azureDevOpsCollectionUri, azureDevOpsProject, azureDevOpsBuildId, itemsToSign, strongNameSignInfo, fileSignInfo, fileExtensionSignInfo, certificatesSignInfo));
             return buildModel;
@@ -209,6 +213,7 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
             bool isStableBuild,
             PublishingInfraVersion publishingVersion,
             bool isReleaseOnlyPackageVersion,
+            string githubRepoUri,
             TaskLoggingHelper log,
             SigningInformationModel signingInformationModel = null)
         {
@@ -227,7 +232,8 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
                         Commit = manifestCommit,
                         IsStable = isStableBuild.ToString(),
                         PublishingVersion = publishingVersion,
-                        IsReleaseOnlyPackageVersion = isReleaseOnlyPackageVersion.ToString()
+                        IsReleaseOnlyPackageVersion = isReleaseOnlyPackageVersion.ToString(),
+                        RepositoryUri = githubRepoUri,
                     });
 
             buildModel.Artifacts.Blobs.AddRange(blobArtifacts);
