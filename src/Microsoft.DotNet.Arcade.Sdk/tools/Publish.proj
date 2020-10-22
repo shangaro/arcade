@@ -166,7 +166,7 @@
       PublishingVersion="$(PublishingVersion)"
       AssetManifestPath="$(AssetManifestFilePath)" 
       IsReleaseOnlyPackageVersion="$(IsReleaseOnlyPackageVersion)" 
-      Repository="$(BUILD_REPOSITORY_URI)" />/>
+      RepositoryUri="$(BUILD_REPOSITORY_URI)" />
 
     <!-- 
         Publish Windows PDBs produced by SymStore.targets (by default, only shipping PDBs are placed there).

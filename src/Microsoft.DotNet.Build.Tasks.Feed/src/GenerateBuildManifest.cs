@@ -112,7 +112,6 @@ namespace Microsoft.DotNet.Build.Tasks.Feed
         /// </summary>
         public bool IsReleaseOnlyPackageVersion { get; set; }
 
-
         public string GithubRepoUri { get; set; }
 
         public override bool Execute()
