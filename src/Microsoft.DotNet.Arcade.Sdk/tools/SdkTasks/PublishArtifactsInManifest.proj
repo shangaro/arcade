@@ -76,7 +76,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <MergedManifest Condition="Exists('$(BlobBasePath)MergedManifest.xml')" Include="$(BlobBasePath)MergedManifest.xml" />
+      <MergedManifest Condition="Exists('$(BlobBasePath)MergedManifest.xml')" Include="$(BlobBasePath)MergedManifest.xml"  Text="Manifest found in the path $(BlobBasePath)MergedManifest.xml"/>
       <ManifestFiles Include="@(MergedManifest)" />
       <ManifestFiles Condition="'@(ManifestFiles)' == ''" Include="$(ManifestsBasePath)\*.xml" />
     </ItemGroup>
